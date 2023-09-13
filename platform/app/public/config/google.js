@@ -16,7 +16,7 @@ window.config = {
       // ~ REQUIRED
       // Authorization Server URL
       authority: 'https://accounts.google.com',
-      client_id: '723928408739-k9k9r3i44j32rhu69vlnibipmmk9i57p.apps.googleusercontent.com',
+      client_id: process.env.GOOGLE_CLIENT_ID,
       redirect_uri: '/callback',
       response_type: 'id_token token',
       scope:
@@ -41,11 +41,11 @@ window.config = {
         friendlyName: 'dcmjs DICOMWeb Server',
         name: 'GCP',
         wadoUriRoot:
-          'https://healthcare.googleapis.com/v1/projects/ohif-cloud-healthcare/locations/us-east4/datasets/ohif-qa-dataset/dicomStores/ohif-qa-2/dicomWeb',
+          `https://healthcare.googleapis.com/v1/${process.env.GOOGLE_HEALTHCARE_DICOM_PATH}/dicomWeb`,
         qidoRoot:
-          'https://healthcare.googleapis.com/v1/projects/ohif-cloud-healthcare/locations/us-east4/datasets/ohif-qa-dataset/dicomStores/ohif-qa-2/dicomWeb',
+          `https://healthcare.googleapis.com/v1/${process.env.GOOGLE_HEALTHCARE_DICOM_PATH}/dicomWeb`,
         wadoRoot:
-          'https://healthcare.googleapis.com/v1/projects/ohif-cloud-healthcare/locations/us-east4/datasets/ohif-qa-dataset/dicomStores/ohif-qa-2/dicomWeb',
+          `https://healthcare.googleapis.com/v1/${process.env.GOOGLE_HEALTHCARE_DICOM_PATH}/dicomWeb`,
         qidoSupportsIncludeField: true,
         imageRendering: 'wadors',
         thumbnailRendering: 'wadors',

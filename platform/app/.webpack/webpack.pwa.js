@@ -99,6 +99,19 @@ module.exports = (env, argv) => {
           {
             from: `${PUBLIC_DIR}/${APP_CONFIG}`,
             to: `${DIST_DIR}/app-config.js`,
+            transform(content) {
+              let finalContent = content.toString();
+              const matches = finalContent.match(/\$?{?process\.env\.[0-9A-z\_\-]*\}?/gi);
+              for (const match of matches) {
+                const parts = match.split('.');
+                const varName = parts[parts.length - 1];
+                const value = process.env[varName.replace(/[\{\}]/gi, '')];
+                
+                finalContent = finalContent.replace(match, varName.endsWith('}') ? value : `'${value}'`);
+              }
+
+              return finalContent;
+            },
           },
           // Copy Dicom Microscopy Viewer build files
           {
