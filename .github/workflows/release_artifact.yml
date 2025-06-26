@@ -1,0 +1,47 @@
+name: Release Artifact
+on:
+  push:
+    branches:
+      - oncai-main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '21'
+
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install # will run `yarn install` command
+
+      - name: Install dependencies
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: add object-inspect --dev --ignore-workspace-root-check
+
+      - name: Run build
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build
+
+      - name: Create release artifact
+        run: |
+          mkdir -p release
+          zip -r release/artifact.zip platform/app/dist/*
+
+      - name: Upload release artifact
+        uses: 'marvinpinto/action-automatic-releases@latest'
+        with:
+          repo_token: '${{ secrets.GITHUB_TOKEN }}'
+          automatic_release_tag: 'oncai-ohif-v0.1.0'
+          prerelease: true
+          title: 'Development Build'
+          files: |
+            release/artifact.zip
