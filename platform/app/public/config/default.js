@@ -2,7 +2,7 @@
 
 window.config = {
   name: 'config/default.js',
-  routerBasename: null,
+  routerBasename: '_ROUTER_BASE_NAME_',
   // whiteLabeling: {},
   extensions: [],
   modes: [],

@@ -14,7 +14,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '21'
+          node-version: "21"
 
       - name: Run install
         uses: borales/actions-yarn@v4
@@ -37,11 +37,11 @@ jobs:
           zip -r release/artifact.zip platform/app/dist/*
 
       - name: Upload release artifact
-        uses: 'marvinpinto/action-automatic-releases@latest'
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          repo_token: '${{ secrets.GITHUB_TOKEN }}'
-          automatic_release_tag: 'oncai-ohif-v0.1.0'
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "oncai-ohif-v0.2.0"
           prerelease: true
-          title: 'Development Build'
+          title: "Development Build"
           files: |
             release/artifact.zip
